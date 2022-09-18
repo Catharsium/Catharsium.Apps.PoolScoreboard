@@ -2,13 +2,10 @@ name: CI Build
 
 on:
   push:
+    branches: [ main ] 
+  pull_request:
     branches: [ main ]
     tags: ['**']
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.gitignore'
-      - '**/*.gitattributes'    
-  pull_request:
 
 permissions:
   contents: read
@@ -22,8 +19,9 @@ jobs:
 
 # MAUI Android Build
   build-android:
-    runs-on: windows-2022
     name: Android Build
+    runs-on: windows-latest
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -33,13 +31,13 @@ jobs:
           echo "${{ secrets.KEYSTORE_FILE }}" > Catharsium.keystore.asc
           gpg -d --passphrase "${{ secrets.KEYSTORE_PASSWORD_GPG }}" --batch Catharsium.keystore.asc > Catharsium.keystore
 
-      - name: Setup .NET 6
+      - name: Setup .NET
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 6.0.x
 
-      - name: Install MAUI Workload
-        run: dotnet workload install maui --ignore-failed-sources
+      - name: Install .NET MAUI
+        run: dotnet workload install maui
 
       - name: Restore Dependencies
         run: dotnet restore
