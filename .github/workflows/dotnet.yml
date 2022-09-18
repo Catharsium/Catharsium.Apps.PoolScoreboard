@@ -40,7 +40,7 @@ jobs:
         run: dotnet restore #Catharsium.Apps.PoolScoreboard/Catharsium.Apps.PoolScoreboard.csproj
 
       - name: Build MAUI Android
-        run: dotnet publish Catharsium.Apps.PoolScoreboard/Catharsium.Apps.PoolScoreboard/.csproj -c Release -f net6.0-android --no-restore
+        run: dotnet publish Catharsium.Apps.PoolScoreboard/Catharsium.Apps.PoolScoreboard.csproj -c Release -f net6.0-android --no-restore
 
       - name: Test
         run: dotnet test --no-build --verbosity normal
