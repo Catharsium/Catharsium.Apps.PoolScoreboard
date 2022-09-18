@@ -3,10 +3,12 @@ name: CI Build
 on:
   push:
     branches: [ main ]
+    tags: ['**']
     paths-ignore:
       - '**/*.md'
       - '**/*.gitignore'
-      - '**/*.gitattributes'
+      - '**/*.gitattributes'    
+  pull_request:
 
 permissions:
   contents: read
