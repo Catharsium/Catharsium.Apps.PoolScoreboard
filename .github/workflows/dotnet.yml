@@ -45,7 +45,7 @@ jobs:
         run: dotnet restore
 
       - name: Build MAUI Android
-        run: dotnet build Catharsium.Apps.PoolScoreboard/Catharsium.Apps.PoolScoreboard.csproj -c Release -f net6.0-android /p:AndroidSigningKeyStore=Catharsium.keystore /p:AndroidSigningKeyAlias=Catharsium /p:AndroidSigningKeyPass="${{ secrets.KEYSTORE_PASSWORD }}" /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_PASSWORD_ALIAS }}
+        run: dotnet build Catharsium.Apps.PoolScoreboard/Catharsium.Apps.PoolScoreboard.csproj -c Release -f net6.0-android /p:AndroidSigningKeyStore=Catharsium.keystore /p:AndroidSigningKeyAlias=Catharsium /p:AndroidSigningKeyPass="${{ secrets.KEYSTORE_PASSWORD }}" /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_PASSWORD_ALIAS }}"
         
       - name: Upload Android Artifact
         uses: actions/upload-artifact@v3.1.0
