@@ -1,0 +1,30 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Catharsium.Apps.PoolScoreboard.Pages"
+             x:Class="Catharsium.Apps.PoolScoreboard.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+
+    <Application.MainPage>
+        <Shell>
+            <TabBar x:Name="Tabs">
+                <Tab Title="Match">
+                    <ShellContent ContentTemplate="{DataTemplate local:MatchPage}"/>
+                </Tab>
+                <Tab Title="Sheet">
+                    <ShellContent ContentTemplate="{DataTemplate local:SheetPage}"/>
+                </Tab>
+                <Tab Title="Statistics">
+                    <ShellContent ContentTemplate="{DataTemplate local:StatsPage}"/>
+                </Tab>
+            </TabBar>
+        </Shell>
+    </Application.MainPage>
+</Application>
