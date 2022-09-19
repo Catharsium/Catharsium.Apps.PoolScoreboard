@@ -1,6 +1,6 @@
 ﻿using Catharsium.Apps.PoolScoreboard.Core._Configuration;
-using Catharsium.Apps.PoolScoreboard.Pages;
 using Catharsium.Apps.PoolScoreboard.ViewModels;
+using Catharsium.Apps.PoolScoreboard.Views;
 using Catharsium.Util.Configuration.Extensions;
 using Microsoft.Extensions.Configuration;
 
@@ -12,6 +12,8 @@ public static class Registration
         var settings = configuration.Load<PoolScoreboardCoreSettings>();
 
         return services.AddSingleton<PoolScoreboardCoreSettings, PoolScoreboardCoreSettings>(_ => settings)
+            .AddPoolScoreboardCore(configuration)
+
             .AddSingleton<MatchPage>()
             .AddSingleton<MatchViewModel>()
             .AddSingleton<SheetPage>()

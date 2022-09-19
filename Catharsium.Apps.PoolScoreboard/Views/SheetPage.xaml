@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:Catharsium.Apps.PoolScoreboard.ViewModels"
              xmlns:local="clr-namespace:Catharsium.Apps.PoolScoreboard.Core.Models;assembly=Catharsium.Apps.PoolScoreboard.Core"
-             x:Class="Catharsium.Apps.PoolScoreboard.Pages.SheetPage"
+             x:Class="Catharsium.Apps.PoolScoreboard.Views.SheetPage"
              x:DataType="viewmodel:SheetViewModel"
              Title="Sheet">
 

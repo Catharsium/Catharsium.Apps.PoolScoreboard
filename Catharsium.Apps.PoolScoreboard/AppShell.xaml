@@ -3,12 +3,17 @@
     x:Class="Catharsium.Apps.PoolScoreboard.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Catharsium.Apps.PoolScoreboard"
+    xmlns:local="clr-namespace:Catharsium.Apps.PoolScoreboard.Views"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <FlyoutItem Title="Astronomy" Icon="moon.png">
+        <ShellContent Title="Match" ContentTemplate="{DataTemplate local:MatchPage}"/>
+        <ShellContent Title="Turns" ContentTemplate="{DataTemplate local:SheetPage}"/>
+        <ShellContent Title="Stats" ContentTemplate="{DataTemplate local:StatsPage}"/>
+    </FlyoutItem>
 
+    <FlyoutItem Title="About">
+        <ShellContent
+        ContentTemplate="{DataTemplate local:MatchPage}"/>
+    </FlyoutItem>
 </Shell>

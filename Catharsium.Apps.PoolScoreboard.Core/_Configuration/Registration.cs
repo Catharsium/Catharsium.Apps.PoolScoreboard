@@ -2,7 +2,6 @@
 using Catharsium.Apps.PoolScoreboard.Core.Models;
 using Catharsium.Util.Configuration.Extensions;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Catharsium.Apps.PoolScoreboard.Core._Configuration;
 
