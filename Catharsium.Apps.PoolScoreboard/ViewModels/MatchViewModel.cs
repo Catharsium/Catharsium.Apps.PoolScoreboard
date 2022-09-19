@@ -33,11 +33,15 @@ public partial class MatchViewModel : ObservableObject
     [RelayCommand]
     async Task EndTurn(ShotType shotType) {
         var enteredBalls = await Application.Current.MainPage.DisplayPromptAsync("End turn with a miss", "How many balls are remaining?");
+        if (string.IsNullOrWhiteSpace(enteredBalls)) {
+            enteredBalls = "0";
+        }
+
         if (int.TryParse(enteredBalls, out var balls)) {
             var foulPoints = 0;
             if (shotType == ShotType.Foul) {
                 foulPoints = 1;
-                if(this.gameManager.IsCurrentPlayerOnTwoFouls()) {
+                if (this.gameManager.IsCurrentPlayerOnTwoFouls()) {
                     foulPoints = 15;
                 }
             }
@@ -46,7 +50,7 @@ public partial class MatchViewModel : ObservableObject
                 foulPoints = 2;
             }
 
-            this.gameManager.AddNewEvent(new EndTurnEvent(balls, foulPoints, shotType));
+            this.gameManager.AddNewEvent(new EndTurnEvent(shotType, balls, foulPoints));
         }
 
         this.Reload();

@@ -13,7 +13,7 @@ public class ScoreEvent : IGameEvent
     }
 
 
-    public void Apply(GameState gameState) {
+    public void Apply(StraightPoolMatch gameState) {
         gameState.Turns.Last().BallsPotted += this.points;
         gameState.BallsOnTable -= this.points;
         if (gameState.BallsOnTable <= 1) {
@@ -22,7 +22,7 @@ public class ScoreEvent : IGameEvent
     }
 
 
-    public void Undo(GameState gameState) {
+    public void Undo(StraightPoolMatch gameState) {
         gameState.Turns.Last().BallsPotted -= this.points;
         gameState.BallsOnTable += this.points;
         gameState.BallsOnTable %= 14;

@@ -10,18 +10,21 @@ public class EndTurnEvent : ComplexEvent
     private readonly ShotType lastShot;
 
 
-    public EndTurnEvent(int ballsOnTable, int foulPoints, ShotType lastShot) {
+    public EndTurnEvent(ShotType lastShot, int ballsOnTable = 0, int foulPoints = 0) {
+        this.lastShot = lastShot;
+
         this.ballsOnTable = ballsOnTable;
         this.foulPoints = foulPoints;
-        this.lastShot = lastShot;
     }
 
 
-    public override void Apply(GameState gameState) {
-        if (gameState.BallsOnTable < ballsOnTable) {
-            gameState.BallsOnTable += 14;
+    public override void Apply(StraightPoolMatch gameState) {
+        var actualBallsOnTable = this.ballsOnTable;
+        if (actualBallsOnTable == 0) {
+            actualBallsOnTable = gameState.BallsOnTable;
         }
-        var score = gameState.BallsOnTable - ballsOnTable;
+
+        var score = gameState.BallsOnTable - actualBallsOnTable;
         this.ApplyChildEvent(new ScoreEvent(score), gameState);
 
         if (foulPoints > 0) {

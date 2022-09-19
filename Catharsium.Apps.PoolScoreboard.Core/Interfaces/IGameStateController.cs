@@ -1,11 +1,13 @@
 ﻿using Catharsium.Apps.PoolScoreboard.Core.Interfaces;
 using Catharsium.Apps.PoolScoreboard.Core.Models;
+using Catharsium.Apps.PoolScoreboard.Core.Models.Base;
 using Catharsium.Apps.PoolScoreboard.Core.Models.Views;
 
 namespace Catharsium.Apps.PoolScoreboard.Core.Controllers;
 
 public interface IGameStateController
 {
+    StraightPoolMatch GameState { get; set; }
     void AddNewEvent(IGameEvent @event);
     void UndoLastEvent();
 

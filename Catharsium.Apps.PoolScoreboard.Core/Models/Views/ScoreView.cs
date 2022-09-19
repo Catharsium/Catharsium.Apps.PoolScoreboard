@@ -5,4 +5,5 @@ public class ScoreView
     public PlayerScore[] PlayerScores { get; set; }
     public int BallsOnTable { get; set; }
     public int CurrentPlayerIndex { get; set; }
+    public string RaceTo { get; set; }
 }

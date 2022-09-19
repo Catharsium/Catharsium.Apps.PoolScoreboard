@@ -1,12 +1,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodel="clr-namespace:Catharsium.Apps.PoolScoreboard.ViewModels"
              xmlns:local="clr-namespace:Catharsium.Apps.PoolScoreboard.Core.Models;assembly=Catharsium.Apps.PoolScoreboard.Core"
-             x:Class="Catharsium.Apps.PoolScoreboard.Pages.MatchPage"
+             xmlns:viewmodel="clr-namespace:Catharsium.Apps.PoolScoreboard.ViewModels"
              x:DataType="viewmodel:MatchViewModel"
+             x:Class="Catharsium.Apps.PoolScoreboard.Pages.MatchPage"
              Title="Match">
-    <Grid>
+        <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
@@ -19,7 +20,9 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Column="0" Text="{Binding Player1Name}" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center">
+            <Label Text="{Binding ScoreView.RaceTo}" FontSize="Medium" Grid.ColumnSpan="3"  HorizontalOptions="Center" VerticalOptions="Center"/>
+
+        <Label Grid.Row="1" Grid.Column="0" Text="{Binding Player1Name}" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center">
             <Label.Style>
                 <Style TargetType="Label">
                     <Setter Property="BackgroundColor" Value="Transparent" />
@@ -31,9 +34,9 @@
                 </Style>
             </Label.Style>
         </Label>
-        <Label Grid.Column="1" Text="Table" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" />
+        <Label Grid.Row="1" Grid.Column="1" Text="Table" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" />
 
-        <Label Grid.Column="2" Text="{Binding Player2Name}" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center">
+        <Label Grid.Row="1" Grid.Column="2" Text="{Binding Player2Name}" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center">
             <Label.Style>
                 <Style TargetType="Label">
                     <Setter Property="BackgroundColor" Value="Transparent" />
@@ -46,20 +49,20 @@
             </Label.Style>
         </Label>
 
-        <Label Grid.Row="1" Grid.Column="0" Text="{Binding Player1Score}" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" />
-        <Label Grid.Row="1" Grid.Column="1" Text="{Binding ScoreView.BallsOnTable}" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" />
-        <Label Grid.Row="1" Grid.Column="2" Text="{Binding Player2Score}" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" />
+        <Label Grid.Row="2" Grid.Column="0" Text="{Binding Player1Score}" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" />
+        <Label Grid.Row="2" Grid.Column="1" Text="{Binding ScoreView.BallsOnTable}" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" />
+        <Label Grid.Row="2" Grid.Column="2" Text="{Binding Player2Score}" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" />
 
-        <Button Grid.Row="3" Grid.Column="0" Command="{Binding EndTurnCommand}" CommandParameter="{x:Static local:ShotType.Savety}" Text="Savety" HorizontalOptions="Center" VerticalOptions="Center"></Button>
-        <Button Grid.Row="3" Grid.Column="1" Command="{Binding EndTurnCommand}" CommandParameter="{x:Static local:ShotType.Miss}" Text="Miss" HorizontalOptions="Center" VerticalOptions="Center" />
-        <Button Grid.Row="3" Grid.Column="2" Command="{Binding EndTurnCommand}" CommandParameter="{x:Static local:ShotType.Foul}" Text="Foul" HorizontalOptions="Center" VerticalOptions="Center" />
+        <Button Grid.Row="4" Grid.Column="0" Command="{Binding EndTurnCommand}" CommandParameter="{x:Static local:ShotType.Savety}" Text="Savety" HorizontalOptions="Center" VerticalOptions="Center"></Button>
+        <Button Grid.Row="4" Grid.Column="1" Command="{Binding EndTurnCommand}" CommandParameter="{x:Static local:ShotType.Miss}" Text="Miss" HorizontalOptions="Center" VerticalOptions="Center" />
+        <Button Grid.Row="4" Grid.Column="2" Command="{Binding EndTurnCommand}" CommandParameter="{x:Static local:ShotType.Foul}" Text="Foul" HorizontalOptions="Center" VerticalOptions="Center" />
 
-        <ImageButton Grid.Row="4" Grid.Column="0" Command="{Binding ScoreCommand}" Source="rack.svg" WidthRequest="60" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" />
-        <Button Grid.Row="4" Grid.Column="1" Command="{Binding ScoreCommand}" Text="Pot" HorizontalOptions="Center" VerticalOptions="Center">
+        <ImageButton Grid.Row="5" Grid.Column="0" Command="{Binding ScoreCommand}" Source="rack.svg" WidthRequest="60" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" />
+        <Button Grid.Row="5" Grid.Column="1" Command="{Binding ScoreCommand}" Text="Pot" HorizontalOptions="Center" VerticalOptions="Center">
             <Button.CommandParameter>
                 <x:Int32>1</x:Int32>
             </Button.CommandParameter>
         </Button>
-        <ImageButton Grid.Row="4" Grid.Column="2" Command="{Binding UndoCommand}" Source="undo.svg" WidthRequest="60" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" />
+        <ImageButton Grid.Row="5" Grid.Column="2" Command="{Binding UndoCommand}" Source="undo.svg" WidthRequest="60" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" />
     </Grid>
 </ContentPage>

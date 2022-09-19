@@ -11,12 +11,13 @@ public class GameStateControllerTests : TestFixture<GameStateController>
 {
     #region Fixture
 
-    private GameState GameState { get; set; } = new GameState("Player 1", "Player 2");
+    private StraightPoolMatch GameState { get; set; }
 
 
     [TestInitialize]
     public void Initialize() {
         this.SetDependency(GameState);
+        this.GameState = new StraightPoolMatch(5, new List<Player> { new Player("My player 1"), new Player("My player 2") });
     }
 
     #endregion
@@ -25,7 +26,7 @@ public class GameStateControllerTests : TestFixture<GameStateController>
     public void AddEvent_AppliesEvent() {
         var @event = Substitute.For<IGameEvent>();
         this.Target.AddNewEvent(@event);
-        @event.Received().Apply(Arg.Any<GameState>());
+        @event.Received().Apply(Arg.Any<StraightPoolMatch>());
     }
 
 
@@ -34,6 +35,6 @@ public class GameStateControllerTests : TestFixture<GameStateController>
         var @event = Substitute.For<IGameEvent>();
         this.Target.AddNewEvent(@event);
         this.Target.UndoLastEvent();
-        @event.Received().Undo(Arg.Any<GameState>());
+        @event.Received().Undo(Arg.Any<StraightPoolMatch>());
     }
 }

@@ -11,13 +11,13 @@ public class EndTurnByFoulEventTests : TestFixture<EndTurnEvent>
 
     private int BallsOnTable { get; set; } = 10;
     private ShotType ShotType { get; set; } = ShotType.Miss;
-    private GameState GameState { get; set; }
+    private StraightPoolMatch GameState { get; set; }
 
 
     [TestInitialize]
     public void Initialize() {
         this.SetDependency(this.ShotType);
-        this.GameState = new GameState("My player 1", "My player 2");
+        this.GameState = new StraightPoolMatch(5, new List<Player> { new Player("My player 1"), new Player("My player 2") });
         GameState.BallsOnTable = this.BallsOnTable;
         GameState.CurrentPlayer = 0;
     }

@@ -13,7 +13,7 @@ public class SwitchEvent : IGameEvent
     }
 
 
-    public void Apply(GameState state) {
+    public void Apply(StraightPoolMatch state) {
         state.Turns.Last().LastShot = lastShot;
         state.CurrentPlayer += 1;
         if (state.CurrentPlayer > state.Players.Length - 1) {
@@ -26,7 +26,7 @@ public class SwitchEvent : IGameEvent
     }
 
 
-    public void Undo(GameState state) {
+    public void Undo(StraightPoolMatch state) {
         state.Turns.Last().LastShot = null;
         state.CurrentPlayer -= 1;
         if (state.CurrentPlayer < 0) {

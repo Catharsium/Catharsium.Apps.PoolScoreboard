@@ -11,13 +11,13 @@ public class ScoreEventTests : TestFixture<ScoreEvent>
 
     private int Points { get; set; } = 4;
 
-    private GameState GameState { get; set; }
+    private StraightPoolMatch GameState { get; set; }
 
 
     [TestInitialize]
     public void Initialize() {
         this.SetDependency(this.Points);
-        this.GameState = new GameState("My player 1", "My player 2");
+        this.GameState = new StraightPoolMatch(5, new List<Player> { new Player("My player 1"), new Player("My player 2") });
     }
 
     #endregion

@@ -8,10 +8,10 @@ public abstract class ComplexEvent : IGameEvent
     protected List<IGameEvent> Events { get; set; } = new List<IGameEvent>();
 
 
-    public abstract void Apply(GameState gameState);
+    public abstract void Apply(StraightPoolMatch gameState);
 
 
-    public void Undo(GameState gameState) {
+    public void Undo(StraightPoolMatch gameState) {
         this.Events.Reverse();
         foreach (var @event in this.Events) {
             @event.Undo(gameState);
@@ -20,7 +20,7 @@ public abstract class ComplexEvent : IGameEvent
     }
 
 
-    protected void ApplyChildEvent(IGameEvent @event, GameState state) {
+    protected void ApplyChildEvent(IGameEvent @event, StraightPoolMatch state) {
         @event.Apply(state);
         this.Events.Add(@event);
     }

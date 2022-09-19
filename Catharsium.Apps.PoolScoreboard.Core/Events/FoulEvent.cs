@@ -13,12 +13,12 @@ public class FoulEvent : IGameEvent
     }
 
 
-    public void Apply(GameState state) {
+    public void Apply(StraightPoolMatch state) {
         state.Turns.Last().FoulPoints = this.points;
     }
 
 
-    public void Undo(GameState state) {
+    public void Undo(StraightPoolMatch state) {
         state.Turns.Last().FoulPoints = 0;
     }
 }

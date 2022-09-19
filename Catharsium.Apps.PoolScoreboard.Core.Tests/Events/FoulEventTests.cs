@@ -10,12 +10,13 @@ public class FoulEventTests : TestFixture<FoulEvent>
     #region Fixture
 
     private readonly int Points = 4;
-    private GameState GameState { get; set; } = new GameState("My player 1", "My player 2");
+    private StraightPoolMatch GameState { get; set; }
 
 
     [TestInitialize]
     public void Initialize() {
         this.SetDependency(this.Points);
+        this.GameState = new StraightPoolMatch(5, new List<Player> { new Player("My player 1"), new Player("My player 2") });
     }
 
     #endregion

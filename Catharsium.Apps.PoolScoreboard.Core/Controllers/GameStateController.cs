@@ -1,19 +1,18 @@
 ﻿using Catharsium.Apps.PoolScoreboard.Analytics;
 using Catharsium.Apps.PoolScoreboard.Core.Interfaces;
 using Catharsium.Apps.PoolScoreboard.Core.Models;
+using Catharsium.Apps.PoolScoreboard.Core.Models.Base;
 using Catharsium.Apps.PoolScoreboard.Core.Models.Views;
 
 namespace Catharsium.Apps.PoolScoreboard.Core.Controllers;
 
 public class GameStateController : IGameStateController
 {
-    private readonly GameState GameState;
-    private readonly List<IGameEvent> Events;
+    private readonly List<IGameEvent> Events = new();
 
+    public StraightPoolMatch? GameState { get; set; }
 
-    public GameStateController(GameState gameState) {
-        GameState = gameState;
-        Events = new List<IGameEvent>();
+    public GameStateController() {
     }
 
 
@@ -34,7 +33,8 @@ public class GameStateController : IGameStateController
         return new ScoreView {
             PlayerScores = this.GameState.Players.Select(p => new PlayerScore(p.Id, p.Name, this.GetScoreForPlayer(p.Id))).ToArray(),
             BallsOnTable = this.GameState.BallsOnTable,
-            CurrentPlayerIndex = this.GameState.CurrentPlayer
+            CurrentPlayerIndex = this.GameState.CurrentPlayer,
+            RaceTo = $"Straightpool, race to {this.GameState.RaceTo}"
         };
     }
 
@@ -52,8 +52,9 @@ public class GameStateController : IGameStateController
     public bool IsCurrentPlayerOnTwoFouls() {
         var currentPlayer = this.GameState.Players[this.GameState.CurrentPlayer];
         var playerTurns = GameState.Turns.Where(t => t.PlayerId == currentPlayer.Id).ToArray();
-        return playerTurns[^2].FoulPoints == 1
-            && playerTurns[^2].BallsPotted == 0 
+        return playerTurns.Length > 2
+            && playerTurns[^2].FoulPoints == 1
+            && playerTurns[^2].BallsPotted == 0
             && playerTurns[^3].FoulPoints == 1;
     }
 }

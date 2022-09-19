@@ -10,13 +10,13 @@ public class SwitchEventTests : TestFixture<SwitchEvent>
     #region Fixture
 
     private ShotType ShotType { get; set; } = ShotType.Savety;
-    private GameState GameState { get; set; }
+    private StraightPoolMatch GameState { get; set; }
 
 
     [TestInitialize]
     public void Initialize() {
         this.SetDependency(this.ShotType);
-        this.GameState = new GameState("My player 1", "My player 2");
+        this.GameState = new StraightPoolMatch(5, new List<Player> { new Player("My player 1"), new Player("My player 2") });
     }
 
     #endregion
