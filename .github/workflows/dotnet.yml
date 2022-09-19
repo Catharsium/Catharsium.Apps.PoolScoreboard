@@ -1,0 +1,141 @@
+name: CI Build
+
+on:
+  push:
+    branches: [ main ] 
+  pull_request:
+    branches: [ main ]
+    tags: ['**']
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_NOLOGO: true                     # Disable the .NET logo
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Disable the .NET first time experience
+  DOTNET_CLI_TELEMETRY_OPTOUT: true       # Disable sending .NET CLI telemetry
+
+jobs:
+
+# MAUI Android Build
+  build-android:
+    name: Android Build
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_FILE }}" > Catharsium.keystore.asc
+          gpg -d --passphrase "${{ secrets.KEYSTORE_PASSWORD_GPG }}" --batch Catharsium.keystore.asc > Catharsium.keystore
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Install .NET MAUI
+        run: dotnet workload install maui
+
+      - name: Restore Dependencies
+        run: dotnet restore
+
+      - name: Build MAUI Android
+        run: dotnet build Catharsium.Apps.PoolScoreboard/Catharsium.Apps.PoolScoreboard.csproj -c Release -f net6.0-android --no-restore /p:AndroidSigningKeyStore=Catharsium.keystore /p:AndroidSigningKeyAlias=Catharsium /p:AndroidSigningKeyPass="${{ secrets.KEYSTORE_PASSWORD }}" /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_PASSWORD_ALIAS }}"
+        
+      - name: Upload Android Artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: PoolScoreboard-android-ci-build
+          path: |
+            ./**/*.aab
+            ./**/*.apk
+
+
+# MAUI Windows Build
+  build-windows:
+    runs-on: windows-2022
+    name: Windows Build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup .NET 6
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Install MAUI Workload
+        run: dotnet workload install maui --ignore-failed-sources
+
+      - name: Restore Dependencies
+        run: dotnet restore Catharsium.Apps.PoolScoreboard/Catharsium.Apps.PoolScoreboard.csproj
+
+      - name: Build MAUI Windows
+        run: dotnet publish Catharsium.Apps.PoolScoreboard/Catharsium.Apps.PoolScoreboard.csproj -c Release -f net6.0-windows10.0.19041.0 --no-restore
+
+      - name: Upload Windows Artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: PoolScoreboard-windows-ci-build
+          path: Catharsium.Apps.PoolScoreboard/bin/Release/net6.0-windows10.0.19041.0/win10-x64/AppPackages/Catharsium.Apps.PoolScoreboard*/Catharsium.Apps.PoolScoreboard*.msix
+
+
+# MAUI iOS Build
+  build-ios:
+    runs-on: macos-12
+    name: iOS Build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup .NET 6
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Install MAUI Workload
+        run: dotnet workload install maui --ignore-failed-sources
+
+      - name: Restore Dependencies
+        run: dotnet restore
+
+      - name: Build MAUI iOS
+        run: dotnet build Catharsium.Apps.PoolScoreboard/Catharsium.Apps.PoolScoreboard.csproj -c Release -f net6.0-ios --no-restore /p:buildForSimulator=True /p:packageApp=True /p:ArchiveOnBuild=False
+
+      - name: Upload iOS Artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: PoolScoreboard-ios-ci-build
+          path: Catharsium.Apps.PoolScoreboard/bin/Release/net6.0-ios/iossimulator-x64/**/*.app
+
+
+# MAUI MacCatalyst Build
+  build-mac:
+    runs-on: macos-12
+    name: MacCatalyst Build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup .NET 6
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Install MAUI Workload
+        run: dotnet workload install maui --ignore-failed-sources
+
+      - name: Restore Dependencies
+        run: dotnet restore
+
+      - name: Build MAUI MacCatalyst
+        run: dotnet publish Catharsium.Apps.PoolScoreboard/Catharsium.Apps.PoolScoreboard.csproj -c Release -f net6.0-maccatalyst --no-restore -p:BuildIpa=True
+
+      - name: Upload MacCatalyst Artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: PoolScoreboard-macos-ci-build
+          path: Catharsium.Apps.PoolScoreboard/bin/Release/net6.0-maccatalyst/maccatalyst-x64/publish/*.pkg
