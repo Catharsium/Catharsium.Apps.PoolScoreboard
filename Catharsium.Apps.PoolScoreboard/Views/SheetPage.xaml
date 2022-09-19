@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:Catharsium.Apps.PoolScoreboard.ViewModels"
+             xmlns:local="clr-namespace:Catharsium.Apps.PoolScoreboard.Core.Models;assembly=Catharsium.Apps.PoolScoreboard.Core"
+             x:Class="Catharsium.Apps.PoolScoreboard.Pages.SheetPage"
+             x:DataType="viewmodel:SheetViewModel"
+             Title="Sheet">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <Label Text="Turn"/>
+        <Label Text="Player 1" Grid.Column="1"/>
+        <Label Text="Player 2" Grid.Column="2"/>
+
+        <CollectionView ItemsSource="{Binding Turns}" Grid.Row="1" Grid.Column="0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type x:Int32}">
+                    <Grid Padding="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="{Binding .}"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <CollectionView ItemsSource="{Binding Player1Turns}" Grid.Row="1" Grid.Column="1">
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="{x:Type local:Turn}">
+                <Grid Padding="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding BallsPotted}" VerticalOptions="End" />
+                        <Label Text="{Binding FoulPoints}" TextColor="Red"/>
+                    </Grid>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+
+    <CollectionView ItemsSource="{Binding Player2Turns}" Grid.Row="1" Grid.Column="2">
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="{x:Type local:Turn}">
+                <Grid Padding="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding BallsPotted}"/>
+                    <Label Text="{Binding FoulPoints}" TextColor="Red"/>
+                    </Grid>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
