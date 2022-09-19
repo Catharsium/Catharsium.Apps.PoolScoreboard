@@ -15,7 +15,7 @@
 		<ApplicationTitle>Catharsium.Apps.PoolScoreboard</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.catharsium.apps.poolscoreboard</ApplicationId>
+		<ApplicationId>com.catharsium.apps.poolscoreboard</ApplicationId>
 		<ApplicationIdGuid>BF86ACF0-3C1D-4EEC-9E23-211B25ACD15B</ApplicationIdGuid>
 
 		<!-- Versions -->
