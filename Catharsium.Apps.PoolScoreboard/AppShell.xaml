@@ -3,20 +3,24 @@
     x:Class="Catharsium.Apps.PoolScoreboard.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Catharsium.Apps.PoolScoreboard.Views">
+    xmlns:local="clr-namespace:Catharsium.Apps.PoolScoreboard.Pages">
 
-    <FlyoutItem Title="Current match">
-        <ShellContent Title="Match" ContentTemplate="{DataTemplate local:MatchPage}"/>
-        <ShellContent Title="Turns" ContentTemplate="{DataTemplate local:SheetPage}"/>
-        <ShellContent Title="Stats" ContentTemplate="{DataTemplate local:StatsPage}"/>
+
+    <FlyoutItem Title="New match" Route="new">
+        <ShellContent Title="New match" Route="match" ContentTemplate="{DataTemplate local:NewMatchPage}"/>
+    </FlyoutItem>
+    
+    <FlyoutItem Title="Current match" Route="current">
+        <ShellContent Title="Match" Route="match" ContentTemplate="{DataTemplate local:MatchPage}"/>
+        <ShellContent Title="Turns" Route="turns" ContentTemplate="{DataTemplate local:SheetPage}"/>
+        <ShellContent Title="Stats" Route="stats" ContentTemplate="{DataTemplate local:StatsPage}"/>
     </FlyoutItem>
 
     <FlyoutItem Title="Previous matches">
         <ShellContent
         ContentTemplate="{DataTemplate local:MatchPage}"/>
     </FlyoutItem>
-
-    <MenuItem Text="Start new match..." />
+    
     <MenuItem Text="Export" />
 
     <Shell.FlyoutFooter>

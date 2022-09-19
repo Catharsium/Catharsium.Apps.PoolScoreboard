@@ -56,4 +56,10 @@
 	  <ProjectReference Include="..\Catharsium.Apps.PoolScoreboard.Core\Catharsium.Apps.PoolScoreboard.Core.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="Pages\NewMatchPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

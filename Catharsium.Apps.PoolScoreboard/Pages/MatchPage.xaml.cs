@@ -1,6 +1,6 @@
 using Catharsium.Apps.PoolScoreboard.ViewModels;
 
-namespace Catharsium.Apps.PoolScoreboard.Views;
+namespace Catharsium.Apps.PoolScoreboard.Pages;
 
 public partial class MatchPage : ContentPage
 {
