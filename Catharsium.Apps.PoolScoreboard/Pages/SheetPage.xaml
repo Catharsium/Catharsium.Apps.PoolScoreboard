@@ -7,6 +7,7 @@
              x:DataType="viewmodel:SheetViewModel"
              Title="Sheet">
 
+    <ScrollView>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -75,5 +76,6 @@
             </DataTemplate>
         </CollectionView.ItemTemplate>
         </CollectionView>
-    </Grid>
+        </Grid>
+    </ScrollView>
 </ContentPage>
