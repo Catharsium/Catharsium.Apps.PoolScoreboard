@@ -2,7 +2,7 @@
 using Catharsium.Apps.PoolScoreboard.Core.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace Catharsium.Apps.PoolScoreboard.ViewModels;
+namespace Catharsium.Apps.PoolScoreboard.ViewModels.Pages;
 
 public partial class SheetViewModel : ObservableObject
 {

@@ -4,11 +4,12 @@ using Catharsium.Apps.PoolScoreboard.Core.Events.Complex;
 using Catharsium.Apps.PoolScoreboard.Core.GameActions;
 using Catharsium.Apps.PoolScoreboard.Core.Models;
 using Catharsium.Apps.PoolScoreboard.Core.Models.Views;
+using Catharsium.Apps.PoolScoreboard.ViewModels.Components;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace Catharsium.Apps.PoolScoreboard.ViewModels;
+namespace Catharsium.Apps.PoolScoreboard.ViewModels.Pages;
 
 public partial class MatchViewModel : ObservableObject
 {
@@ -74,12 +75,15 @@ public partial class MatchViewModel : ObservableObject
 
 
     public async Task<int> DisplayPopup(string message) {
-        var popup = new NumericPopup(new Components.NumericPopupViewModel(message)) {
+        var popup = new NumericPopup(new NumericPopupViewModel {
+            Settings = new NumericPopupSettings {
+                Title = message
+            }
+        }) {
             CanBeDismissedByTappingOutsideOfPopup = true
         };
 
         var result = await Shell.Current.CurrentPage.ShowPopupAsync(popup);
-
         return result is int ballsOnTable ? ballsOnTable : 0;
     }
 

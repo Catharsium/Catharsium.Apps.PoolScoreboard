@@ -4,30 +4,33 @@ using CommunityToolkit.Mvvm.Input;
 namespace Catharsium.Apps.PoolScoreboard.ViewModels.Components;
 
 [INotifyPropertyChanged]
-public sealed partial class NumericPopupViewModel
+public partial class NumericPopupViewModel
 {
+    public int Value => int.TryParse(this.Number, out var result) ? result : 0;
+
+
     [ObservableProperty]
-    string title;
+    NumericPopupSettings settings;
 
     [ObservableProperty]
-    string value;
+    string number;
 
 
-    public NumericPopupViewModel(string title) {
-        this.Title = title;
+    public NumericPopupViewModel() {
+        this.Settings = new NumericPopupSettings { Title = "Enter a number" };
     }
 
 
     [RelayCommand]
     void Add(string number) {
-        Value += number;
+        Number += number;
     }
 
 
     [RelayCommand]
     void Delete() {
-        if (this.Value.Length > 0) {
-            this.Value = this.Value[..^1];
+        if (this.Number.Length > 0) {
+            this.Number = this.Number[..^1];
         }
     }
 }

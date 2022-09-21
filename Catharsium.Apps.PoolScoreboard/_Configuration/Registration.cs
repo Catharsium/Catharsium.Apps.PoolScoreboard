@@ -1,8 +1,8 @@
 ﻿using Catharsium.Apps.PoolScoreboard.Components;
 using Catharsium.Apps.PoolScoreboard.Core._Configuration;
 using Catharsium.Apps.PoolScoreboard.Pages;
-using Catharsium.Apps.PoolScoreboard.ViewModels;
 using Catharsium.Apps.PoolScoreboard.ViewModels.Components;
+using Catharsium.Apps.PoolScoreboard.ViewModels.Pages;
 using Catharsium.Util.Configuration.Extensions;
 using Microsoft.Extensions.Configuration;
 

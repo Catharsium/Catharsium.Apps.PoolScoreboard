@@ -1,4 +1,4 @@
-using Catharsium.Apps.PoolScoreboard.ViewModels;
+using Catharsium.Apps.PoolScoreboard.ViewModels.Pages;
 
 namespace Catharsium.Apps.PoolScoreboard.Pages;
 

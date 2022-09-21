@@ -15,8 +15,8 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Label Text="{Binding Title}" FontSize="Large"  HorizontalTextAlignment="Center"/>
-            <Label Text="{Binding Value}" Grid.Row="1" HorizontalTextAlignment="Center"/>
+            <Label Text="{Binding Settings.Title}" FontSize="Large"  HorizontalTextAlignment="Center"/>
+            <Label Text="{Binding Number}" Grid.Row="1" HorizontalTextAlignment="Center"/>
         </Grid>
 
         <Grid Padding="10" Margin="10" HorizontalOptions="Center">

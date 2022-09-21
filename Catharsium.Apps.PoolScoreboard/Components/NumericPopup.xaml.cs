@@ -14,5 +14,5 @@ public partial class NumericPopup : CommunityToolkit.Maui.Views.Popup
     }
 
 
-    void OnOkButtonClicked(object sender, EventArgs e) => Close(int.Parse(this.viewModel.Value));
+    void OnOkButtonClicked(object sender, EventArgs e) => Close(this.viewModel.Value);
 }

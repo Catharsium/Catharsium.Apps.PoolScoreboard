@@ -4,7 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 
-namespace Catharsium.Apps.PoolScoreboard.ViewModels;
+namespace Catharsium.Apps.PoolScoreboard.ViewModels.Pages;
 
 public partial class CreateMatchViewModel : ObservableObject
 {

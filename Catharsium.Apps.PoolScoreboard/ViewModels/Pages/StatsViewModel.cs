@@ -1,7 +1,7 @@
 ﻿using Catharsium.Apps.PoolScoreboard.Core.Controllers;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace Catharsium.Apps.PoolScoreboard.ViewModels;
+namespace Catharsium.Apps.PoolScoreboard.ViewModels.Pages;
 
 public class StatsViewModel : ObservableObject
 {
@@ -9,6 +9,6 @@ public class StatsViewModel : ObservableObject
 
 
     public StatsViewModel(IGameStateController gameStateController) {
-        this.GameStateController = gameStateController;
+        GameStateController = gameStateController;
     }
 }
