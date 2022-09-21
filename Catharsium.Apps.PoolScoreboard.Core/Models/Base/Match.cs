@@ -4,7 +4,7 @@ namespace Catharsium.Apps.PoolScoreboard.Core.Models.Base;
 
 public abstract class Match
 {
-    public readonly Player[] Players;
+    public Player[] Players { get; set; }
     public List<Turn> Turns { get; set; } = new List<Turn>();
     public int CurrentTurn { get; set; } = 0;
     public int CurrentPlayer { get; set; } = 0;
