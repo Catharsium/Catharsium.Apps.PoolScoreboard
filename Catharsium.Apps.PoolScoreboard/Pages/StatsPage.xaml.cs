@@ -16,7 +16,7 @@ public partial class StatsPage : ContentPage
     private async void Button_Clicked(object sender, EventArgs e) {
         var filePath = Path.Combine(FileSystem.CacheDirectory, "match.json");
         var stream = File.OpenWrite(filePath);
-        JsonSerializer.Serialize(stream, this.viewModel.GameStateController.GameState, this.viewModel.GameStateController.GameState.GetType());
+        JsonSerializer.Serialize(stream, this.viewModel.GameStateController.Match, this.viewModel.GameStateController.Match.GetType());
 
         await Share.Default.RequestAsync(new ShareFileRequest {
             Title = "Share text file",

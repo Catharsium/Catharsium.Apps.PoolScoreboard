@@ -10,7 +10,7 @@ public class GameStateController : IGameStateController
 {
     private readonly List<IGameEvent> Events = new();
 
-    public StraightPoolMatch? GameState { get; set; }
+    public StraightPoolMatch? Match { get; set; }
 
     public GameStateController() {
     }
@@ -18,40 +18,40 @@ public class GameStateController : IGameStateController
 
     public void AddNewEvent(IGameEvent @event) {
         Events.Add(@event);
-        @event.Apply(GameState);
+        @event.Apply(Match);
     }
 
 
     public void UndoLastEvent() {
         var @event = Events.Last();
-        @event.Undo(GameState);
+        @event.Undo(Match);
         Events.Remove(@event);
     }
 
 
     public ScoreView GetScoreView() {
         return new ScoreView {
-            PlayerScores = this.GameState.Players.Select(p => new PlayerScore(p.Id, p.Name, this.GetScoreForPlayer(p.Id))).ToArray(),
-            BallsOnTable = this.GameState.BallsOnTable,
-            CurrentPlayerIndex = this.GameState.CurrentPlayer,
-            RaceTo = $"Straightpool, race to {this.GameState.RaceTo}"
+            PlayerScores = this.Match.Players.Select(p => new PlayerScore(p.Id, p.Name, this.GetScoreForPlayer(p.Id))).ToArray(),
+            BallsOnTable = this.Match.BallsOnTable,
+            CurrentPlayerIndex = this.Match.CurrentPlayer,
+            RaceTo = $"Straightpool, race to {this.Match.RaceTo}"
         };
     }
 
 
     public List<Turn> GetTurnsView() {
-        return this.GameState.Turns;
+        return this.Match.Turns;
     }
 
 
     private int GetScoreForPlayer(Guid playerId) {
-        var playerTurns = GameState.Turns.Where(t => t.PlayerId == playerId);
+        var playerTurns = Match.Turns.Where(t => t.PlayerId == playerId);
         return new ScoreAnalyzer().Total(playerTurns);
     }
 
     public bool IsCurrentPlayerOnTwoFouls() {
-        var currentPlayer = this.GameState.Players[this.GameState.CurrentPlayer];
-        var playerTurns = GameState.Turns.Where(t => t.PlayerId == currentPlayer.Id).ToArray();
+        var currentPlayer = this.Match.Players[this.Match.CurrentPlayer];
+        var playerTurns = Match.Turns.Where(t => t.PlayerId == currentPlayer.Id).ToArray();
         return playerTurns.Length > 2
             && playerTurns[^2].FoulPoints == 1
             && playerTurns[^2].BallsPotted == 0

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewmodel="clr-namespace:Catharsium.Apps.PoolScoreboard.ViewModels"
              x:DataType="viewmodel:CreateMatchViewModel"
              x:Class="Catharsium.Apps.PoolScoreboard.Pages.CreateMatchPage"
              Title="Start a new match">
-    
+
     <VerticalStackLayout>
         <Grid ColumnDefinitions="*,2*" RowDefinitions="*,*,*,*,*,*">
             <Label Text="Game type" Grid.Row="0" Grid.Column="0"/>
-            <Picker Title="Select a game type" SelectedIndex="{Binding GameTypeIndex}" Grid.Row="0" Grid.Column="1">
+            <Picker Title="Select a game type" SelectedIndex="{Binding MatchTypeIndex}" Grid.Row="0" Grid.Column="1">
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>Straight pool</x:String>
@@ -18,11 +19,15 @@
             </Picker>
 
             <Label Text="Race to" Grid.Row="1" Grid.Column="0"/>
-            <Entry Text="{Binding RaceTo}" Grid.Row="1" Grid.Column="2"/>
+            <Entry  Keyboard="Numeric" Text="{Binding RaceTo}" Grid.Row="1" Grid.Column="2">
+                <Entry.Behaviors>
+                    <toolkit:NumericValidationBehavior Flags="ValidateOnValueChanged" MinimumValue="1" MaximumDecimalPlaces="0" />
+                </Entry.Behaviors>
+            </Entry>
 
             <Label Text="Players" Grid.Row="2" Grid.Column="0"/>
             <Entry Text="{Binding NewPlayer}" Grid.Row="2" Grid.Column="1"/>
-            
+
             <Button Text="Add" Command="{Binding AddPlayerCommand}" Grid.Row="3" Grid.Column="1"/>
             <CollectionView x:Name="collectionView" ItemsSource="{Binding Players}" Grid.Row="4" Grid.Column="1">
                 <CollectionView.ItemTemplate>
@@ -30,24 +35,21 @@
                         <SwipeView>
                             <SwipeView.RightItems>
                                 <SwipeItems>
-                                <SwipeItem Text="Delete"
-                                   BackgroundColor="Orange"
-                                   Command="{Binding Source={x:Reference collectionView}, Path=BindingContext.DeleteCommand}"
-                                   CommandParameter="{Binding}" />
+                                    <SwipeItem Text="Delete" BackgroundColor="Orange" Command="{Binding Source={x:Reference collectionView}, Path=BindingContext.DeletePlayerCommand}" CommandParameter="{Binding}" />
                                 </SwipeItems>
                             </SwipeView.RightItems>
                             <Grid Padding="0,5">
-                            <Frame>
-                                <Label Text="{Binding .}"/>
-                            </Frame>
+                                <Frame>
+                                    <Label Text="{Binding .}"/>
+                                </Frame>
                             </Grid>
                         </SwipeView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Button IsEnabled="{Binding CanStart}" Clicked="StartMatchEvent" x:Name="btnStart" Text="Start" Grid.Row="5" Grid.ColumnSpan="2"/>
+            <Button Command="{Binding StartMatchCommand}" x:Name="btnStart" Text="Start" Grid.Row="5" Grid.ColumnSpan="2"/>
         </Grid>
     </VerticalStackLayout>
-    
+
 </ContentPage>

@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Catharsium.Apps.PoolScoreboard.Core.Controllers;
+using Catharsium.Apps.PoolScoreboard.Core.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 
@@ -6,38 +8,57 @@ namespace Catharsium.Apps.PoolScoreboard.ViewModels;
 
 public partial class CreateMatchViewModel : ObservableObject
 {
-    [ObservableProperty]
-    bool canStart;
+    private readonly IGameStateController gameStateController;
 
     [ObservableProperty]
-    string gameTypeIndex;
+    [NotifyCanExecuteChangedFor(nameof(StartMatchCommand))]
+    string matchTypeIndex;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(StartMatchCommand))]
     int raceTo;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(AddPlayerCommand))]
     string newPlayer;
 
     [ObservableProperty]
     ObservableCollection<string> players = new();
 
 
-    [RelayCommand]
-    void AddPlayer() {
-        if (string.IsNullOrEmpty(this.NewPlayer)) {
-            return;
-        }
+    public CreateMatchViewModel(IGameStateController gameStateController) {
+        this.gameStateController = gameStateController;
+    }
 
+
+    [RelayCommand(CanExecute = "CanAddPlayer")]
+    void AddPlayer() {
         this.Players.Add(this.NewPlayer);
         this.NewPlayer = "";
+        this.StartMatchCommand.NotifyCanExecuteChanged();
+    }
 
-        this.CanStart = this.players.Count == 2 && gameTypeIndex != null;
+    bool CanAddPlayer() {
+        return !string.IsNullOrEmpty(this.NewPlayer);
     }
 
 
     [RelayCommand]
-    void Delete(string player) {
+    void DeletePlayer(string player) {
         this.Players.Remove(player);
-        this.CanStart = this.players.Count == 2 && gameTypeIndex != null;
+        this.StartMatchCommand.NotifyCanExecuteChanged();
+    }
+
+
+    [RelayCommand(CanExecute = "CanStartMatch")]
+    async void StartMatch() {
+        this.gameStateController.Match = new StraightPoolMatch(this.RaceTo, this.Players.Take(2).Select(p => new Player(p)));
+        await Shell.Current.GoToAsync("//current/match");
+    }
+
+    bool CanStartMatch() {
+        return MatchTypeIndex != null
+            && this.RaceTo > 0
+            && this.Players.Count == 2;
     }
 }

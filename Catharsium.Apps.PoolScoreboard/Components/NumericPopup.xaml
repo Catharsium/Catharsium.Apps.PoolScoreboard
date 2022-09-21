@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:viewmodel="clr-namespace:Catharsium.Apps.PoolScoreboard.ViewModels.Components"
+               x:Class="Catharsium.Apps.PoolScoreboard.Components.NumericPopup"
+               x:DataType="viewmodel:NumericPopupViewModel">
+
+    <VerticalStackLayout Padding="10" BackgroundColor="White" HorizontalOptions="Fill">
+        <Grid Padding="10,10,10,10" Margin="10,10,10,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Label Text="{Binding Title}" FontSize="Large"  HorizontalTextAlignment="Center"/>
+            <Label Text="{Binding Value}" Grid.Row="1" HorizontalTextAlignment="Center"/>
+        </Grid>
+
+        <Grid Padding="10" Margin="10" HorizontalOptions="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition Width="60" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+            </Grid.RowDefinitions>
+            <Button Text="1" Command="{Binding AddCommand}" CommandParameter="1" Grid.Row="0" Grid.Column="0" />
+            <Button Text="2" Command="{Binding AddCommand}" CommandParameter="2" Grid.Row="0" Grid.Column="1" />
+            <Button Text="3" Command="{Binding AddCommand}" CommandParameter="3" Grid.Row="0" Grid.Column="2" />
+            <Button Text="4" Command="{Binding AddCommand}" CommandParameter="4" Grid.Row="1" Grid.Column="0" />
+            <Button Text="5" Command="{Binding AddCommand}" CommandParameter="5" Grid.Row="1" Grid.Column="1" />
+            <Button Text="6" Command="{Binding AddCommand}" CommandParameter="6" Grid.Row="1" Grid.Column="2" />
+            <Button Text="7" Command="{Binding AddCommand}" CommandParameter="7" Grid.Row="2" Grid.Column="0" />
+            <Button Text="8" Command="{Binding AddCommand}" CommandParameter="8" Grid.Row="2" Grid.Column="1" />
+            <Button Text="9" Command="{Binding AddCommand}" CommandParameter="9" Grid.Row="2" Grid.Column="2" />
+            <Button Text="&lt;&lt;" Command="{Binding DeleteCommand}" Grid.Row="3" Grid.Column="0" />
+            <Button Text="0" Command="{Binding AddCommand}" CommandParameter="0" Grid.Row="3" Grid.Column="1" />
+            <Button Text="OK" Clicked="OnOkButtonClicked" Grid.Row="3" Grid.Column="2" />
+        </Grid>
+    </VerticalStackLayout>
+
+</toolkit:Popup>

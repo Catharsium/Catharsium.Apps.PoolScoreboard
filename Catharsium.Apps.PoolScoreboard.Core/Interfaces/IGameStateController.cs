@@ -7,7 +7,7 @@ namespace Catharsium.Apps.PoolScoreboard.Core.Controllers;
 
 public interface IGameStateController
 {
-    StraightPoolMatch GameState { get; set; }
+    StraightPoolMatch Match { get; set; }
     void AddNewEvent(IGameEvent @event);
     void UndoLastEvent();
 

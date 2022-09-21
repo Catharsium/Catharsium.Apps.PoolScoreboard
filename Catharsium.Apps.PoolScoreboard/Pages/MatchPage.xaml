@@ -22,18 +22,7 @@
 
             <Label Text="{Binding ScoreView.RaceTo}" FontSize="Medium" Grid.ColumnSpan="3"  HorizontalOptions="Center" VerticalOptions="Center"/>
 
-        <Label Grid.Row="1" Grid.Column="0" Text="{Binding Player1Name}" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center">
-            <Label.Style>
-                <Style TargetType="Label">
-                    <Setter Property="BackgroundColor" Value="Transparent" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ScoreView.CurrentPlayerIndex}" Value="0" TargetType="Label">
-                            <Setter Property="BackgroundColor" Value="LightGreen" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Label.Style>
-        </Label>
+        <Label Grid.Row="1" Grid.Column="0" Text="{Binding Player1Name}" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center"/>
         <Label Grid.Row="1" Grid.Column="1" Text="Table" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" />
 
         <Label Grid.Row="1" Grid.Column="2" Text="{Binding Player2Name}" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center">

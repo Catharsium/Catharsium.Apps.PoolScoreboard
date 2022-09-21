@@ -29,9 +29,9 @@ public partial class SheetViewModel : ObservableObject
 
 
     private void Reload() {
-        var player1Id = this.gameStateController.GameState.Players[0].Id;
-        this.Player1Turns = this.gameStateController.GameState.Turns.Where(t => t.PlayerId == player1Id);
-        this.Player2Turns = this.gameStateController.GameState.Turns.Where(t => t.PlayerId != player1Id);
-        this.Turns = this.gameStateController.GameState.Turns.Select(t => t.TurnNumber).Distinct().OrderBy(t => t).Select(t => t + 1);
+        var player1Id = this.gameStateController.Match.Players[0].Id;
+        this.Player1Turns = this.gameStateController.Match.Turns.Where(t => t.PlayerId == player1Id);
+        this.Player2Turns = this.gameStateController.Match.Turns.Where(t => t.PlayerId != player1Id);
+        this.Turns = this.gameStateController.Match.Turns.Select(t => t.TurnNumber).Distinct().OrderBy(t => t).Select(t => t + 1);
     }
 }

@@ -1,8 +1,10 @@
-﻿using Catharsium.Apps.PoolScoreboard.Core.Controllers;
+﻿using Catharsium.Apps.PoolScoreboard.Components;
+using Catharsium.Apps.PoolScoreboard.Core.Controllers;
 using Catharsium.Apps.PoolScoreboard.Core.Events.Complex;
 using Catharsium.Apps.PoolScoreboard.Core.GameActions;
 using Catharsium.Apps.PoolScoreboard.Core.Models;
 using Catharsium.Apps.PoolScoreboard.Core.Models.Views;
+using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -32,26 +34,20 @@ public partial class MatchViewModel : ObservableObject
 
     [RelayCommand]
     async Task EndTurn(ShotType shotType) {
-        var enteredBalls = await Application.Current.MainPage.DisplayPromptAsync("End turn with a miss", "How many balls are remaining?");
-        if (string.IsNullOrWhiteSpace(enteredBalls)) {
-            enteredBalls = "0";
+        var ballsOnTable = await this.DisplayPopup("Remaining balls");
+        var foulPoints = 0;
+        if (shotType == ShotType.Foul) {
+            foulPoints = 1;
+            if (this.gameManager.IsCurrentPlayerOnTwoFouls()) {
+                foulPoints = 15;
+            }
         }
 
-        if (int.TryParse(enteredBalls, out var balls)) {
-            var foulPoints = 0;
-            if (shotType == ShotType.Foul) {
-                foulPoints = 1;
-                if (this.gameManager.IsCurrentPlayerOnTwoFouls()) {
-                    foulPoints = 15;
-                }
-            }
-
-            if (shotType == ShotType.FoulBreak) {
-                foulPoints = 2;
-            }
-
-            this.gameManager.AddNewEvent(new EndTurnEvent(shotType, balls, foulPoints));
+        if (shotType == ShotType.FoulBreak) {
+            foulPoints = 2;
         }
+
+        this.gameManager.AddNewEvent(new EndTurnEvent(shotType, ballsOnTable, foulPoints));
 
         this.Reload();
     }
@@ -74,6 +70,17 @@ public partial class MatchViewModel : ObservableObject
     public void Undo() {
         this.gameManager.UndoLastEvent();
         this.Reload();
+    }
+
+
+    public async Task<int> DisplayPopup(string message) {
+        var popup = new NumericPopup(new Components.NumericPopupViewModel(message)) {
+            CanBeDismissedByTappingOutsideOfPopup = true
+        };
+
+        var result = await Shell.Current.CurrentPage.ShowPopupAsync(popup);
+
+        return result is int ballsOnTable ? ballsOnTable : 0;
     }
 
 
