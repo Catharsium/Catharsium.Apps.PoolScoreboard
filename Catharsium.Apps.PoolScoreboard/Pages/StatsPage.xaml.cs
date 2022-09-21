@@ -15,11 +15,12 @@ public partial class StatsPage : ContentPage
 
     private async void Button_Clicked(object sender, EventArgs e) {
         var filePath = Path.Combine(FileSystem.CacheDirectory, "match.json");
-        var stream = File.OpenWrite(filePath);
-        JsonSerializer.Serialize(stream, this.viewModel.GameStateController.Match, this.viewModel.GameStateController.Match.GetType());
+        using (var stream = File.OpenWrite(filePath)) {
+            JsonSerializer.Serialize(stream, this.viewModel.GameStateController.Match, this.viewModel.GameStateController.Match.GetType());
+        }
 
         await Share.Default.RequestAsync(new ShareFileRequest {
-            Title = "Share text file",
+            Title = "Export match",
             File = new ShareFile(filePath)
         });
     }
